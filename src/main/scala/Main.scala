@@ -1,7 +1,5 @@
-import Columns.{colAnne, colContractant, colDate, colMontant}
-import ContratUserDefinedFunctions.toBigDecimal
-import org.apache.spark.sql.functions.col
-import org.apache.spark.sql.{DataFrame, SparkSession, functions}
+import contrats.DFQueries.{listeContractantsQueries, montantCumulatifParContractantsQuery, montantDepenseParAnneeQuery}
+import org.apache.spark.sql.{DataFrame, SparkSession}
 
 object Main extends App {
 
@@ -12,7 +10,7 @@ object Main extends App {
     .getOrCreate()
 
   // obtention des contrats a partir du ficher JSON
-  val path: String = "contrats-octroyes.json"
+  val path: String = "src/main/scala/contrats/contrats-octroyes.json"
 
   val contrats: DataFrame = sparkSession
     .read
@@ -22,26 +20,13 @@ object Main extends App {
 //  contrats.printSchema()
 
   //liste des contractants
-  val listeContractants: DataFrame = contrats.select(colContractant).distinct
-
+  val listeContractants: DataFrame = listeContractantsQueries(contrats)
 
   // montant cumulatif pour chacun des contractants
-  val montantCumulatifParContractants: DataFrame =
-    contrats
-      .select(colContractant, colMontant)
-      //TODO: voir comment remplacer l'expression en utilisant directement la colonne
-      .where(" nature like '%construction%'")
-      .groupBy(colContractant)
-      .agg(functions.sum(colMontant).as("montant cumulatif(par consultant)"))
-      .orderBy(toBigDecimal(col("montant cumulatif(par consultant)")).desc)
+  val montantCumulatifParContractants: DataFrame = montantCumulatifParContractantsQuery(contrats)
 
   // argent depensee par annee
-  val montantDepenseParAnnee: DataFrame =
-    contrats
-      .select(colDate, colMontant)
-      .groupBy(colAnne)
-      .agg(functions.sum(colMontant).as("montant cumulatif(par annee)"))
-      .orderBy(colAnne)
+  val montantDepenseParAnnee: DataFrame = montantDepenseParAnneeQuery(contrats)
 
   // show les resultats
   listeContractants.show()

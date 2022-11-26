@@ -1,3 +1,5 @@
+package contrats
+
 import org.apache.spark.sql.expressions.UserDefinedFunction
 import org.apache.spark.sql.functions.udf
 
@@ -11,7 +13,7 @@ object ContratUserDefinedFunctions {
     val optionStr = Option(str)
     optionStr match {
       case None => "null"
-      case Some(value) => value.substring(0,4)
+      case Some(value) => value.substring(0, 4)
     }
   }
 }
