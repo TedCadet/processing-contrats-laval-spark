@@ -1,8 +1,7 @@
-import ContratUserDefinedFunctions.{toBigDecimal, toSubStrAnneeUdf}
-import org.apache.spark.sql.catalyst.dsl.expressions.{DslExpression, StringToAttributeConversionHelper}
-import org.apache.spark.sql.expressions.UserDefinedFunction
-import org.apache.spark.sql.functions.{col, desc, udf}
-import org.apache.spark.sql.{Column, DataFrame, Dataset, Row, SparkSession, functions}
+import Columns.{colAnne, colContractant, colDate, colMontant}
+import ContratUserDefinedFunctions.toBigDecimal
+import org.apache.spark.sql.functions.col
+import org.apache.spark.sql.{DataFrame, SparkSession, functions}
 
 object Main extends App {
 
@@ -21,15 +20,6 @@ object Main extends App {
     .json(path)
 
 //  contrats.printSchema()
-
-  // definition des colonnes
-  val colMontant: Column = col("montant")
-  val colBigMontant: Column = toBigDecimal(col("montant"))
-  val colContractant: Column = col("contractant")
-  val colDate: Column = col("date")
-  val colNature: Column = col("nature")
-  val colNoReference: Column = col("no-reference")
-  val colAnne: Column = toSubStrAnneeUdf(colDate)
 
   //liste des contractants
   val listeContractants: DataFrame = contrats.select(colContractant).distinct
