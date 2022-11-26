@@ -7,7 +7,6 @@ import org.apache.spark.sql.functions.col
 
 object DFQueries {
 
-
   /**
    * @param contratsDF liste des contrats dans un dataFrame
    * @return la liste des contractants
