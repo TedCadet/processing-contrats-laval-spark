@@ -9,11 +9,7 @@ object ContratUserDefinedFunctions {
   val toBigDecimal: UserDefinedFunction = udf((x: Double) => BigDecimal(x))
   val toSubStrAnneeUdf: UserDefinedFunction = udf((str: String) => toSubStrAnnee(str))
 
-  def toSubStrAnnee(str: String): String = {
-    val optionStr = Option(str)
-    optionStr match {
-      case None => "null"
-      case Some(value) => value.substring(0, 4)
-    }
-  }
+  def toSubStrAnnee(str: String): String =
+    Option(str).map(_.substring(0, 4)).getOrElse("null")
+
 }
