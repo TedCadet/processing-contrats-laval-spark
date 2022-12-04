@@ -1,6 +1,6 @@
-package contrats
+package com.tedcadet.donneeslaval.contrats
 
-import contrats.ContratUserDefinedFunctions.{toBigDecimal, toSubStrAnneeUdf}
+import com.tedcadet.donneeslaval.contrats.ContratUserDefinedFunctions.{toBigDecimal, toSubStrAnneeUdf}
 import org.apache.spark.sql.Column
 import org.apache.spark.sql.functions.col
 

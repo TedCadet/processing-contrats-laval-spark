@@ -1,11 +1,11 @@
-package contrats
+package com.tedcadet.donneeslaval.contrats
 
-import contrats.Columns.{colAnne, colContractant, colDate, colMontant}
-import contrats.ContratUserDefinedFunctions.toBigDecimal
+import com.tedcadet.donneeslaval.contrats.Columns.{colAnne, colContractant, colDate, colMontant}
+import com.tedcadet.donneeslaval.contrats.ContratUserDefinedFunctions.toBigDecimal
 import org.apache.spark.sql.{DataFrame, functions}
 import org.apache.spark.sql.functions.col
 
-object DFQueries {
+object ContratQueries {
 
   /**
    * @param contratsDF liste des contrats dans un dataFrame

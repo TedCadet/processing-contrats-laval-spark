@@ -1,16 +1,21 @@
-import contrats.DFQueries.{listeContractantsQueries, montantCumulatifParContractantsQuery, montantDepenseParAnneeQuery}
+package com.tedcadet.donneeslaval
+
+import com.tedcadet.donneeslaval.contrats.ContratQueries.{listeContractantsQueries, montantCumulatifParContractantsQuery, montantDepenseParAnneeQuery}
 import org.apache.spark.sql.{DataFrame, SparkSession}
 
 object Main extends App {
 
+  case class Contractant(contractant: String)
   // creation du sparkSession
   val sparkSession: SparkSession = SparkSession.builder
     .appName("file-json-processing-test")
     .master("local[1]")
     .getOrCreate()
 
+  import sparkSession.implicits._
+
   // obtention des contrats a partir du ficher JSON
-  val path: String = "src/main/scala/contrats/contrats-octroyes.json"
+  val path: String = "src/main/ressources/contrats-octroyes.json"
 
   val contrats: DataFrame = sparkSession
     .read
@@ -32,6 +37,8 @@ object Main extends App {
   listeContractants.show()
   montantCumulatifParContractants.show()
   montantDepenseParAnnee.show()
+  
+  val contractant = listeContractants.as[Contractant].first().toString
 
   // fermeture de la session
   sparkSession.close()
