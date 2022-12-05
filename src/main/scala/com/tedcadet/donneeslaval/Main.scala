@@ -6,6 +6,7 @@ import org.apache.spark.sql.{DataFrame, SparkSession}
 object Main extends App {
 
   case class Contractant(contractant: String)
+  // TODO: peut etre externaliser dans un fichier conf
   // creation du sparkSession
   val sparkSession: SparkSession = SparkSession.builder
     .appName("file-json-processing-test")
@@ -14,10 +15,11 @@ object Main extends App {
 
   import sparkSession.implicits._
 
+  // TODO: le path est a externaliser dans un fichier conf
   // obtention des contrats a partir du ficher JSON
   val path: String = "src/main/ressources/contrats-octroyes.json"
 
-  val contrats: DataFrame = sparkSession
+  lazy val contrats: DataFrame = sparkSession
     .read
     .option("multiline", "true")
     .json(path)
