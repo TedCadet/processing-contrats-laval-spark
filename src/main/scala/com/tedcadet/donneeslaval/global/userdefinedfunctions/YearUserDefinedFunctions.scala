@@ -1,4 +1,4 @@
-package com.tedcadet.donneeslaval.globaluserdefinedfunctions
+package com.tedcadet.donneeslaval.global.userdefinedfunctions
 
 import org.apache.spark.sql.expressions.UserDefinedFunction
 
