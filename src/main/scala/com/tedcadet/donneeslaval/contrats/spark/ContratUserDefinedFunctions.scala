@@ -1,6 +1,6 @@
 package com.tedcadet.donneeslaval.contrats.spark
 
-import com.tedcadet.donneeslaval.globaluserdefinedfunctions.{NumbersUserDefinedFunctions, YearUserDefinedFunctions}
+import com.tedcadet.donneeslaval.global.userdefinedfunctions.{NumbersUserDefinedFunctions, YearUserDefinedFunctions}
 import org.apache.spark.sql.expressions.UserDefinedFunction
 import org.apache.spark.sql.functions.udf
 
