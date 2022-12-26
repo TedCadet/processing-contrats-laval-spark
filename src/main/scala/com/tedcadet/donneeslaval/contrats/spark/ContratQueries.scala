@@ -4,12 +4,13 @@ import com.tedcadet.donneeslaval.contrats.spark.Columns._
 import org.apache.spark.sql.functions.col
 import org.apache.spark.sql.{Column, DataFrame, functions}
 
+// TODO: re-use the function with ".compose" and/or ".andThen" to create other queries
 private object ContratQueries {
 
   type QueryNoParam = DataFrame => DataFrame
   type QueryOneParam[A] = (DataFrame, A) => DataFrame
 
-  /**
+  /** TODO: a mettre dans un Object qui regroupera les query reutilisables
    * description de la transformation d'un DataFrame qui retourne
    * une liste des elements distincts d'une colonne
     */
@@ -23,7 +24,7 @@ private object ContratQueries {
    * et qui retourne la liste des contractants
    */
   val listeContractantsQuery: QueryNoParam =
-    contratsDF => contratsDF.select(colContractant).distinct
+    contratsDF => listeParColonneDistinctQuery(contratsDF, colContractant)
 
   //TODO: passe comme parametre le type de contractant. Pour l'instant il recherche que les contractants en construction
   /**
