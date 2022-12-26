@@ -1,20 +1,19 @@
 package com.tedcadet.donneeslaval.contrats.spark
 
 import com.tedcadet.donneeslaval.contrats.spark.Columns._
+import com.tedcadet.donneeslaval.global.queries.DfQueryTypes
 import org.apache.spark.sql.functions.col
 import org.apache.spark.sql.{Column, DataFrame, functions}
 
 // TODO: re-use the function with ".compose" and/or ".andThen" to create other queries
-private object ContratQueries {
+private object ContratQueries extends DfQueryTypes {
 
-  type QueryNoParam = DataFrame => DataFrame
-  type QueryOneParam[A] = (DataFrame, A) => DataFrame
 
-  /** TODO: a mettre dans un Object qui regroupera les query reutilisables
+  /**
    * description de la transformation d'un DataFrame qui retourne
    * une liste des elements distincts d'une colonne
     */
-  val listeParColonneDistinctQuery: QueryOneParam[Column] = {
+  private val listeParColonneDistinctQuery: QueryOneParam[Column] = {
     (dataFrame, column) =>
       dataFrame.select(column).distinct
   }
