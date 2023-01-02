@@ -4,7 +4,7 @@ import com.tedcadet.donneeslaval.contrats.spark.ContratUserDefinedFunctions.{toB
 import org.apache.spark.sql.Column
 import org.apache.spark.sql.functions.col
 
-private object Columns {
+private trait ContratColumns {
   // definition des colonnes
   val colMontant: Column = col("montant")
   val colBigMontant: Column = toBigDecimal(col("montant"))
