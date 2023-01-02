@@ -3,6 +3,9 @@ package com.tedcadet.donneeslaval.contrats.spark
 import com.tedcadet.donneeslaval.contrats.spark.ContratQueries._
 import org.apache.spark.sql.{DataFrame, SparkSession}
 
+/* TODO: use a class instead so that instance could keep the state of this read?
+   * maybe an Akka actor?
+   */
 object ContratSparkService {
   // TODO: peut etre externaliser dans un fichier conf
   // creation du sparkSession
