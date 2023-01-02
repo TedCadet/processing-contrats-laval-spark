@@ -1,10 +1,11 @@
 package com.tedcadet.donneeslaval.contrats.spark
 
-import com.tedcadet.donneeslaval.contrats.spark.ContratUserDefinedFunctions.{toBigDecimal, toSubStrAnneeUdf}
+import com.tedcadet.donneeslaval.global.userdefinedfunctions.NumbersUserDefinedFunctions.toBigDecimal
+import com.tedcadet.donneeslaval.global.userdefinedfunctions.YearUserDefinedFunctions.toSubStrAnneeUdf
 import org.apache.spark.sql.Column
 import org.apache.spark.sql.functions.col
 
-private trait ContratColumns {
+private object ContratColumns {
   // definition des colonnes
   val colMontant: Column = col("montant")
   val colBigMontant: Column = toBigDecimal(col("montant"))

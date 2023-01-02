@@ -1,13 +1,13 @@
 package com.tedcadet.donneeslaval.contrats.spark
 
-import com.tedcadet.donneeslaval.contrats.spark.Columns._
-import com.tedcadet.donneeslaval.global.queries.DfQueryTypes
+import com.tedcadet.donneeslaval.contrats.spark.ContratColumns.{colAnne, colBigMontant, colContractant, colDate, colMontant, colNature}
 import org.apache.spark.sql.functions.col
 import org.apache.spark.sql.{Column, DataFrame, functions}
 
 // TODO: re-use the function with ".compose" and/or ".andThen" to create other queries
-private object ContratQueries extends DfQueryTypes {
-
+private object ContratQueries {
+  type QueryNoParam = DataFrame => DataFrame
+  type QueryOneParam[A] = (DataFrame, A) => DataFrame
 
   /**
    * description de la transformation d'un DataFrame qui retourne
