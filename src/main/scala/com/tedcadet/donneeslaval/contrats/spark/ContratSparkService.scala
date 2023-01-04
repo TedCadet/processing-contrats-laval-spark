@@ -18,7 +18,7 @@ object ContratSparkService {
   // obtention des contrats a partir du ficher JSON
   val path: String = "src/main/ressources/contrats-octroyes.json"
 
-  lazy val contrats: DataFrame = sparkSession
+  val contrats: DataFrame = sparkSession
     .read
     .option("multiline", "true")
     .json(path)
