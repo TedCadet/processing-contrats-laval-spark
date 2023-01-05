@@ -12,7 +12,7 @@ class ContratServiceGrpcImpl extends ContratService {
     Source(ContratSparkService.listeContractants.collect())
       .map(listeContractantMapper)
 
-  val listeContractantMapper: Row => ListeContractantsReply = row => ListeContractantsReply(row.toString())
+  private val listeContractantMapper: Row => ListeContractantsReply = row => ListeContractantsReply(row.toString())
 }
 
 
