@@ -4,9 +4,12 @@ import com.tedcadet.donneeslaval.contrats.spark.ContratQueries._
 import org.apache.spark.sql.{DataFrame, SparkSession}
 
 /* TODO: use a class instead so that instance could keep the state of this read?
-   * maybe an Akka actor?
+   *
    */
 object ContratSparkService {
+
+  // TODO: apply(contrats, sparkSession)?
+
   // TODO: peut etre externaliser dans un fichier conf
   // creation du sparkSession
   val sparkSession: SparkSession = SparkSession.builder
@@ -27,7 +30,7 @@ object ContratSparkService {
   //  contrats.printSchema()
 
   //liste des contractants
-  val listeContractants: DataFrame = listeContractantsQuery(contrats)
+  val listeContractants: DataFrame = listeContractantsQuery(contrats).cache()
 
   // montant cumulatif pour chacun des contractants
   val montantCumulatifParContractants: DataFrame = montantCumulatifParContractantsQuery(contrats)
