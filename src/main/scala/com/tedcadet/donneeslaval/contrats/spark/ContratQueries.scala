@@ -5,9 +5,16 @@ import org.apache.spark.sql.functions.col
 import org.apache.spark.sql.{Column, DataFrame, functions}
 
 // TODO: re-use the function with ".compose" and/or ".andThen" to create other queries
+// add a queryBuilder?
+// for-comprehension to compose the different generic queries?
 private object ContratQueries {
   type QueryNoParam = DataFrame => DataFrame
   type QueryOneParam[A] = (DataFrame, A) => DataFrame
+
+  // apply(contrats)?
+
+  private val montantCumulatifTxtTemplate: String => String =
+    str => s"montant cumulatif par $str"
 
   /**
    * description de la transformation d'un DataFrame qui retourne
@@ -35,8 +42,8 @@ private object ContratQueries {
       contratsDF
         .select(colContractant, colMontant)
         .groupBy(colContractant)
-        .agg(functions.sum(colBigMontant).as("montant cumulatif(par consultant)"))
-        .orderBy(col("montant cumulatif(par consultant)").desc)
+        .agg(functions.sum(colBigMontant).as(montantCumulatifTxtTemplate("consultant")))
+        .orderBy(col(montantCumulatifTxtTemplate("consultant")).desc)
   }
 
   /**
@@ -48,7 +55,7 @@ private object ContratQueries {
       contratsDF
         .select(colDate, colMontant)
         .groupBy(colAnne.as("annee"))
-        .agg(functions.sum(colBigMontant).as("montant cumulatif(par annee)"))
+        .agg(functions.sum(colBigMontant).as(montantCumulatifTxtTemplate("annee")))
         .orderBy(colAnne)
   }
 
@@ -72,8 +79,8 @@ private object ContratQueries {
       contratDF
         .select(colNature, colMontant)
         .groupBy(colNature.as("nature du contrat"))
-        .agg(functions.sum(colBigMontant).as("montant cumulatif(par nature du contrat)"))
-        .orderBy(col("montant cumulatif(par nature du contrat)").desc)
+        .agg(functions.sum(colBigMontant).as(montantCumulatifTxtTemplate("nature du contrat")))
+        .orderBy(col(montantCumulatifTxtTemplate("nature du contrat")).desc)
   }
 
   /**
