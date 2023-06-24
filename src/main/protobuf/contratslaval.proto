@@ -5,8 +5,8 @@ option java_package = "com.tedcadet.donneeslaval.contrats";
 
 service ContratService {
   rpc ListeContractants(ListeContractantsRequest) returns (stream ListeContractantsReply) {}
-//  rpc montantCumulatifParContractants(montantCumulatifParContractantsRequest) returns (stream montantCumulatifParContractantsReply) {}
-//  rpc montantDepenseParAnnee(montantDepenseParAnneeRequest) returns (stream montantDepenseParAnneeReply) {}
+  rpc MontantCumulatifParContractants(MontantCumulatifParContractantsRequest) returns (stream MontantCumulatifParContractantsReply) {}
+  //  rpc montantDepenseParAnnee(montantDepenseParAnneeRequest) returns (stream montantDepenseParAnneeReply) {}
 }
 
 message ListeContractantsRequest {
@@ -17,14 +17,14 @@ message ListeContractantsReply {
   string contractant = 1;
 }
 
-//message montantCumulatifParContractantsRequest {
-//
-//}
-//
-//message montantCumulatifParContractantsReply {
-//  string contractant = 1;
-//  double
-//}
+message MontantCumulatifParContractantsRequest {
+
+}
+
+message MontantCumulatifParContractantsReply {
+  string contractant = 1;
+  string montantCumulatifParConsultant = 2;
+}
 //
 //message montantDepenseParAnneeRequest {
 
