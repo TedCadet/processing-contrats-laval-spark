@@ -47,5 +47,5 @@ object ContratSparkService {
   // liste de contrat selon leur nature
   val listeContractantParNature: DataFrame = listeContractantParNatureQuery(contrats, "Acquisition")
 
-//  def closeSession(): Unit = sparkSession.close()
+  def closeSession(): Unit = sparkSession.close()
 }
