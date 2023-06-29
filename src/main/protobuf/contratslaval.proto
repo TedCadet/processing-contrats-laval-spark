@@ -6,7 +6,7 @@ option java_package = "com.tedcadet.donneeslaval.contrats";
 service ContratService {
   rpc ListeContractants(ListeContractantsRequest) returns (stream ListeContractantsReply) {}
   rpc MontantCumulatifParContractants(MontantCumulatifParContractantsRequest) returns (stream MontantCumulatifParContractantsReply) {}
-  //  rpc montantDepenseParAnnee(montantDepenseParAnneeRequest) returns (stream montantDepenseParAnneeReply) {}
+  rpc MontantDepenseParAnnee(MontantDepenseParAnneeRequest) returns (stream MontantDepenseParAnneeReply) {}
 }
 
 message ListeContractantsRequest {
@@ -25,13 +25,12 @@ message MontantCumulatifParContractantsReply {
   string contractant = 1;
   string montantCumulatifParConsultant = 2;
 }
-//
-//message montantDepenseParAnneeRequest {
 
-//}
+message MontantDepenseParAnneeRequest {
 
-// type de montantCumulatifParAnnee est un BigDecimal
-//message montantDepenseParAnneeReply {
-//  string annee = 1;
-//  double montantCumulatifParAnnee = 2;
-//}
+}
+
+message MontantDepenseParAnneeReply {
+  string annee = 1;
+  string montantCumulatifParAnnee = 2;
+}

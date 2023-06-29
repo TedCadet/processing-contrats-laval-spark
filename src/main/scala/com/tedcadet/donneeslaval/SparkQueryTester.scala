@@ -4,22 +4,22 @@ import com.tedcadet.donneeslaval.contrats.spark.ContratSparkService.{listeContra
 
 object SparkQueryTester extends App {
 
-// show les resultats
-//  listeParColonneDistinctQuery(contrats,colNoReference).show()
-  listeContractants.show()
-  montantCumulatifParContractants.show()
-  montantDepenseParAnnee.show()
-  listeDesNaturesDeContrat.show()
-  montantOctroyeParNatures.show()
-  listeContractantParNature.show()
-//  println(s"nombre de contrats: ${contrats.count()}")
+  // show les resultats
+  //  listeParColonneDistinctQuery(contrats,colNoReference).show()
+  //  listeContractants.show()
+  //  montantCumulatifParContractants.show()
+  //  montantDepenseParAnnee.show()
+  //  listeDesNaturesDeContrat.show()
+  //  montantOctroyeParNatures.show()
+  //  listeContractantParNature.show()
+  //  println(s"nombre de contrats: ${contrats.count()}")
 
 
-  montantCumulatifParContractants.printSchema()
+  //  montantCumulatifParContractants.printSchema()
   montantDepenseParAnnee.printSchema()
 
-//  val contractants = listeContractants.as[Contractant].first().toString
+  //  val contractants = listeContractants.as[Contractant].first().toString
 
   // fermeture de la session
-//  closeSession()
+  //  closeSession()
 }

@@ -13,3 +13,9 @@ grpcurl -proto ./src/main/protobuf/contratslaval.proto -plaintext 127.0.0.1:8080
 ```shell
 grpcurl -proto ./src/main/protobuf/contratslaval.proto -plaintext 127.0.0.1:8080 ContratService/MontantCumulatifParContractants
 ```
+
+## montant depense par annee
+
+```shell
+grpcurl -proto ./src/main/protobuf/contratslaval.proto -plaintext 127.0.0.1:8080 ContratService/MontantDepenseParAnnee
+```
