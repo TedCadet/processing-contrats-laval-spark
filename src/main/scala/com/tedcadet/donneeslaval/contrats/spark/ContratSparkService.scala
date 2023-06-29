@@ -30,7 +30,7 @@ object ContratSparkService {
   //  contrats.printSchema()
 
   //liste des contractants
-  val listeContractants: DataFrame = listeContractantsQuery(contrats).cache()
+  val listeContractants: DataFrame = listeContractantsQuery(contrats)
 
   // montant cumulatif pour chacun des contractants
   val montantCumulatifParContractants: DataFrame = montantCumulatifParContractantsQuery(contrats)
