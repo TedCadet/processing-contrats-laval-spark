@@ -10,9 +10,7 @@ import com.typesafe.config.ConfigFactory
 import scala.concurrent.{ExecutionContext, Future}
 
 object GrpcServer extends App {
-  val conf = ConfigFactory
-    .parseString("akka.http.server.preview.enable-http2 = on")
-    .withFallback(ConfigFactory.defaultApplication())
+  val conf = ConfigFactory.load()
 
   val system = ActorSystem("contrats-octroye-laval", conf)
   new GrpcServer(system).run()

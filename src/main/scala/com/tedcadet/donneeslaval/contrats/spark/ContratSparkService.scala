@@ -1,33 +1,36 @@
 package com.tedcadet.donneeslaval.contrats.spark
 
 import com.tedcadet.donneeslaval.contrats.spark.ContratQueries._
+import com.typesafe.config.ConfigFactory
 import org.apache.spark.sql.{DataFrame, SparkSession}
+import pureconfig._
+import pureconfig.generic.auto._
 
-/* TODO: use a class instead so that instance could keep the state of this read?
-   *
-   */
+final case class SparkConfig(appName: String, master: String, path: String)
+
+// TODO: use a class instead so that instance could keep the state of this read?
 object ContratSparkService {
 
   // TODO: apply(contrats, sparkSession)?
 
-  // TODO: peut etre externaliser dans un fichier conf
-  // creation du sparkSession
+  val sparkConfig: SparkConfig = ConfigSource.default.at("spark")
+    .load[SparkConfig]
+    .getOrElse(
+      SparkConfig("file-json-processing-test", "local[2]", "src/main/ressources/contrats-octroyes.json")
+    )
+
   val sparkSession: SparkSession = SparkSession.builder
-    .appName("file-json-processing-test")
-    .master("local[2]")
+    .appName(sparkConfig.appName)
+    .master(sparkConfig.master)
     .getOrCreate()
 
-  // TODO: le path est a externaliser dans un fichier conf
-  // obtention des contrats a partir du ficher JSON
-  val path: String = "src/main/ressources/contrats-octroyes.json"
+  val path: String = sparkConfig.path
 
   val contrats: DataFrame = sparkSession
     .read
     .option("multiline", "true")
     .json(path)
     .cache()
-
-  //  contrats.printSchema()
 
   //liste des contractants
   val listeContractants: DataFrame = listeContractantsQuery(contrats)

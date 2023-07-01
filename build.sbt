@@ -32,4 +32,6 @@ libraryDependencies ++= Seq(
   "io.grpc" % "grpc-core" % GrpcVersion,
   "io.grpc" % "grpc-netty-shaded" % GrpcVersion,
   "io.grpc" % "grpc-protobuf" % GrpcVersion,
+  // config loader
+  "com.github.pureconfig" %% "pureconfig" % "0.17.1",
 )
