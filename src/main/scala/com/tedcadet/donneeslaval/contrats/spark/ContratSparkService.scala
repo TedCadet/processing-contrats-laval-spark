@@ -6,10 +6,10 @@ import org.apache.spark.sql.{DataFrame, SparkSession}
 import pureconfig._
 import pureconfig.generic.auto._
 
-final case class SparkConfig(appName: String, master: String, path: String)
 
 // TODO: use a class instead so that instance could keep the state of this read?
 object ContratSparkService {
+  final case class SparkConfig(appName: String, master: String, path: String)
 
   // TODO: apply(contrats, sparkSession)?
 
