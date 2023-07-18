@@ -1,6 +1,13 @@
-# Pour tester le service GRPC
+# Context of the projet
 
-*Préalable installer grpcurl*
+project to analyse with spark and serve the data throuh an Akka Grpc server.
+The data came from the city of laval, more precisely their contracts it gave to contractors in the
+last decade,
+and it was free to use.
+
+# To test the service GRPC
+
+*Préalable installer [grpcurl](https://github.com/fullstorydev/grpcurl)*
 
 ## liste des contractants
 
