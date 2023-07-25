@@ -27,7 +27,9 @@ class GrpcServer(system: ActorSystem) {
       ContratServiceHandler(new ContratServiceGrpcImpl())
 
     // Bind service handler servers to localhost:8080/8081
-    val binding = Http().newServerAt("127.0.0.1", 8080).bind(service)
+    val host = "0.0.0.0"
+    val port = 8080
+    val binding = Http().newServerAt(host, port).bind(service)
 
     // report successful binding
     binding.foreach {
