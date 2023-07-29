@@ -1,6 +1,6 @@
 package com.tedcadet.donneeslaval.contrats.spark
 
-import com.tedcadet.donneeslaval.contrats.spark.ContratQueries._
+import com.tedcadet.donneeslaval.contrats.spark.ContratsDfTransformer._
 import com.typesafe.config.ConfigFactory
 import org.apache.spark.sql.{DataFrame, SparkSession}
 import pureconfig._
@@ -32,6 +32,8 @@ object ContratSparkService {
     .json(path)
     .cache()
 
+  // TODO: Map(id: String -> DataFrame)?
+  // TODO: map.get(id).union(map.get(id))?
   //liste des contractants
   val listeContractants: DataFrame = listeContractantsQuery(contrats)
 

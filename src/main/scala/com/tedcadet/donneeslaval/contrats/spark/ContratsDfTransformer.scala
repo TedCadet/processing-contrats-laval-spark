@@ -1,13 +1,14 @@
 package com.tedcadet.donneeslaval.contrats.spark
 
-import com.tedcadet.donneeslaval.contrats.spark.ContratColumns.{colAnne, colBigMontant, colContractant, colDate, colMontant, colNature}
+//import com.tedcadet.donneeslaval.contrats.spark.ContratColumns.{colAnne, colBigMontant, colContractant, colDate, colMontant, colNature}
+
 import org.apache.spark.sql.functions.col
 import org.apache.spark.sql.{Column, DataFrame, functions}
 
 // TODO: re-use the function with ".compose" and/or ".andThen" to create other queries
 // add a queryBuilder?
 // for-comprehension to compose the different generic queries?
-private object ContratQueries {
+private object ContratsDfTransformer extends ContratColumns {
   type QueryNoParam = DataFrame => DataFrame
   type QueryOneParam[A] = (DataFrame, A) => DataFrame
 
@@ -19,7 +20,7 @@ private object ContratQueries {
   /**
    * description de la transformation d'un DataFrame qui retourne
    * une liste des elements distincts d'une colonne
-    */
+   */
   private val listeParColonneDistinctQuery: QueryOneParam[Column] = {
     (dataFrame, column) =>
       dataFrame.select(column).distinct
@@ -50,7 +51,7 @@ private object ContratQueries {
    * description de la transformation d'un DataFrame contenant les contrats
    * et qui retourne le montant depensee par annee
    */
-  val montantDepenseParAnneeQuery: QueryNoParam  = {
+  val montantDepenseParAnneeQuery: QueryNoParam = {
     contratsDF =>
       contratsDF
         .select(colDate, colMontant)
@@ -74,7 +75,7 @@ private object ContratQueries {
    * description de la transformation d'un DataFrame contenant les contrats
    * et qui retourne le montant depense par nature de contrats
    */
-  val montantOctroyeParNaturesQuery: QueryNoParam  = {
+  val montantOctroyeParNaturesQuery: QueryNoParam = {
     contratDF =>
       contratDF
         .select(colNature, colMontant)
