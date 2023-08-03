@@ -38,16 +38,17 @@ object ContratSparkService extends ContratColumns {
   val listeContractants: DataFrame = listeParColonneDistinctQuery(contrats, contractantString)
 
   // montant cumulatif pour chacun des contractants
-  val montantCumulatifParContractants: DataFrame = montantCumulatifParContractantsQuery(contrats)
+  val montantCumulatifParContractants: DataFrame =
+    montantCumulatifParQuery(contrats, contractantString)
 
   // argent depensee par annee
   val montantDepenseParAnnee: DataFrame = montantDepenseParAnneeQuery(contrats)
 
   // liste des natures de contrats
-  val listeDesNaturesDeContrat: DataFrame = listeNaturesDeContratQuery(contrats)
+  val listeDesNaturesDeContrat: DataFrame = listeParColonneDistinctQuery(contrats, natureString)
 
   // argent depensee par nature du contrat
-  val montantOctroyeParNatures: DataFrame = montantOctroyeParNaturesQuery(contrats)
+  val montantOctroyeParNatures: DataFrame = montantCumulatifParQuery(contrats, natureString)
 
   // liste de contrat selon leur nature
   val listeContractantParNature: DataFrame = listeContractantParNatureQuery(contrats, "Acquisition")
