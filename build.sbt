@@ -4,7 +4,7 @@ ThisBuild / scalaVersion := "2.13.8"
 
 
 // this specifies which class is the main class in the package
-Compile / mainClass := Some("server.MyServer")
+Compile / mainClass := Some("com.tedcadet.donneeslaval.GrpcServer")
 
 // this will add the ability to "stage" which is required for Heroku
 enablePlugins(JavaAppPackaging)
