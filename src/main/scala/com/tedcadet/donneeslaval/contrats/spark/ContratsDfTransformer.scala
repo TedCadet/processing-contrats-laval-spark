@@ -1,9 +1,7 @@
 package com.tedcadet.donneeslaval.contrats.spark
 
-//import com.tedcadet.donneeslaval.contrats.spark.ContratColumns.{colAnne, colBigMontant, colContractant, colDate, colMontant, colNature}
-
 import org.apache.spark.sql.functions.col
-import org.apache.spark.sql.{Column, DataFrame, functions}
+import org.apache.spark.sql.{DataFrame, functions}
 
 // TODO: re-use the function with ".compose" and/or ".andThen" to create other queries
 // add a queryBuilder?
@@ -32,13 +30,13 @@ object ContratsDfTransformer extends ContratColumns with Query {
    * description de la transformation d'un DataFrame contenant les contrats
    * et qui retourne les montants cumulatif depensee par contractant
    */
-  val montantCumulatifParContractantsQuery: QueryNoParam = {
-    contratsDF =>
+  val montantCumulatifParQuery: QueryOneParam[String] = {
+    (contratsDF, nomColonne) =>
       contratsDF
-        .select(colContractant, colMontant)
-        .groupBy(colContractant)
-        .agg(functions.sum(colBigMontant).as(montantCumulatifTxtTemplate("consultant")))
-        .orderBy(col(montantCumulatifTxtTemplate("consultant")).desc)
+        .select(columns(nomColonne), colMontant)
+        .groupBy(columns(nomColonne))
+        .agg(functions.sum(colBigMontant).as(montantCumulatifTxtTemplate(nomColonne)))
+        .orderBy(col(montantCumulatifTxtTemplate(nomColonne)).desc)
   }
 
   /**
@@ -52,30 +50,6 @@ object ContratsDfTransformer extends ContratColumns with Query {
         .groupBy(colAnne.as("annee"))
         .agg(functions.sum(colBigMontant).as(montantCumulatifTxtTemplate("annee")))
         .orderBy(colAnne)
-  }
-
-  /**
-   * description de la transformation d'un DataFrame contenant les contrats
-   * et qui retourne la liste des natures des contrats
-   */
-  val listeNaturesDeContratQuery: QueryNoParam = {
-    contratsDF =>
-      contratsDF
-        .select(colNature)
-        .distinct()
-  }
-
-  /**
-   * description de la transformation d'un DataFrame contenant les contrats
-   * et qui retourne le montant depense par nature de contrats
-   */
-  val montantOctroyeParNaturesQuery: QueryNoParam = {
-    contratDF =>
-      contratDF
-        .select(colNature, colMontant)
-        .groupBy(colNature.as("nature du contrat"))
-        .agg(functions.sum(colBigMontant).as(montantCumulatifTxtTemplate("nature du contrat")))
-        .orderBy(col(montantCumulatifTxtTemplate("nature du contrat")).desc)
   }
 
   /**
