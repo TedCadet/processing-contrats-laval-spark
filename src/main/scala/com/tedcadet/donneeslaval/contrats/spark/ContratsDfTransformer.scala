@@ -8,7 +8,8 @@ import org.apache.spark.sql.{Column, DataFrame, functions}
 // TODO: re-use the function with ".compose" and/or ".andThen" to create other queries
 // add a queryBuilder?
 // for-comprehension to compose the different generic queries?
-private object ContratsDfTransformer extends ContratColumns {
+object ContratsDfTransformer extends ContratColumns with Query {
+
   type QueryNoParam = DataFrame => DataFrame
   type QueryOneParam[A] = (DataFrame, A) => DataFrame
 
@@ -21,17 +22,10 @@ private object ContratsDfTransformer extends ContratColumns {
    * description de la transformation d'un DataFrame qui retourne
    * une liste des elements distincts d'une colonne
    */
-  private val listeParColonneDistinctQuery: QueryOneParam[Column] = {
-    (dataFrame, column) =>
-      dataFrame.select(column).distinct
+  val listeParColonneDistinctQuery: QueryOneParam[String] = {
+    (dataFrame, str) =>
+      dataFrame.select(columns(str)).distinct
   }
-
-  /**
-   * description de la transformation d'un DataFrame contenant les contrats
-   * et qui retourne la liste des contractants
-   */
-  val listeContractantsQuery: QueryNoParam =
-    contratsDF => listeParColonneDistinctQuery(contratsDF, colContractant)
 
   //TODO: passe comme parametre le type de contractant. Pour l'instant il recherche que les contractants en construction
   /**
@@ -95,5 +89,8 @@ private object ContratsDfTransformer extends ContratColumns {
         //TODO: Security Risk SQL injection: voir comment remplacer sans passer directement la nature
         .where(s" nature like '%$nature%'")
   }
-
 }
+
+//object ContratsDfTransformer {
+//  def apply(contratsDF: DataFrame) = new ContratsDfTransformer(contratsDF)
+//}

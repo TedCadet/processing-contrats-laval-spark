@@ -8,7 +8,7 @@ import pureconfig.generic.auto._
 
 
 // TODO: use a class instead so that instance could keep the state of this read?
-object ContratSparkService {
+object ContratSparkService extends ContratColumns {
   final case class SparkConfig(appName: String, master: String, path: String)
 
   // TODO: apply(contrats, sparkSession)?
@@ -35,7 +35,7 @@ object ContratSparkService {
   // TODO: Map(id: String -> DataFrame)?
   // TODO: map.get(id).union(map.get(id))?
   //liste des contractants
-  val listeContractants: DataFrame = listeContractantsQuery(contrats)
+  val listeContractants: DataFrame = listeParColonneDistinctQuery(contrats, contractantString)
 
   // montant cumulatif pour chacun des contractants
   val montantCumulatifParContractants: DataFrame = montantCumulatifParContractantsQuery(contrats)
