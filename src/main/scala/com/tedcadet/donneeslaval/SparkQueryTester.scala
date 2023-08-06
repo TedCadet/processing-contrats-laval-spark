@@ -1,6 +1,6 @@
 package com.tedcadet.donneeslaval
 
-import com.tedcadet.donneeslaval.contrats.spark.ContratSparkService.{listeContractantParNature, listeContractants, listeDesNaturesDeContrat, montantCumulatifParContractants, montantDepenseParAnnee, montantOctroyeParNatures}
+import com.tedcadet.donneeslaval.contrats.spark.services.ContratSparkService.{listeContractantParNature, listeContractants, listeDesNaturesDeContrat, montantCumulatifParContractants, montantDepenseParAnnee, montantOctroyeParNatures}
 
 object SparkQueryTester extends App {
 

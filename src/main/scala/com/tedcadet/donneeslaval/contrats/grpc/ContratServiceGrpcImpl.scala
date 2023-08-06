@@ -2,7 +2,7 @@ package com.tedcadet.donneeslaval.contrats.grpc
 
 import akka.NotUsed
 import akka.stream.scaladsl.Source
-import com.tedcadet.donneeslaval.contrats.spark.ContratSparkService
+import com.tedcadet.donneeslaval.contrats.spark.services.ContratSparkService
 import com.tedcadet.donneeslaval.contrats.{ContratService, ListeContractantsReply, ListeContractantsRequest, MontantCumulatifParContractantsReply, MontantCumulatifParContractantsRequest, MontantDepenseParAnneeReply, MontantDepenseParAnneeRequest}
 
 class ContratServiceGrpcImpl extends ContratService {

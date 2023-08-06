@@ -1,4 +1,4 @@
-package com.tedcadet.donneeslaval.contrats.spark
+package com.tedcadet.donneeslaval.contrats.spark.traits
 
 trait Query {
   type QueryNoParam

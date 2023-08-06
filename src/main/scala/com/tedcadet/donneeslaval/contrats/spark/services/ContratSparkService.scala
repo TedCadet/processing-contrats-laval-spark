@@ -1,7 +1,7 @@
-package com.tedcadet.donneeslaval.contrats.spark
+package com.tedcadet.donneeslaval.contrats.spark.services
 
-import com.tedcadet.donneeslaval.contrats.spark.ContratsDfTransformer._
-import com.typesafe.config.ConfigFactory
+import com.tedcadet.donneeslaval.contrats.spark.transformers.ContratsDfTransformer._
+import com.tedcadet.donneeslaval.contrats.spark.traits.ContratColumns
 import org.apache.spark.sql.{DataFrame, SparkSession}
 import pureconfig._
 import pureconfig.generic.auto._
@@ -26,32 +26,30 @@ object ContratSparkService extends ContratColumns {
 
   val path: String = sparkConfig.path
 
-  val contrats: DataFrame = sparkSession
+  implicit val contrats: DataFrame = sparkSession
     .read
     .option("multiline", "true")
     .json(path)
     .cache()
 
-  // TODO: Map(id: String -> DataFrame)?
-  // TODO: map.get(id).union(map.get(id))?
   //liste des contractants
-  val listeContractants: DataFrame = listeParColonneDistinctQuery(contrats, contractantString)
+  val listeContractants: DataFrame = transformContratOneParam(listeParColonneDistinctQuery, contractantString)
 
   // montant cumulatif pour chacun des contractants
   val montantCumulatifParContractants: DataFrame =
     montantCumulatifParQuery(contrats, contractantString)
 
   // argent depensee par annee
-  val montantDepenseParAnnee: DataFrame = montantDepenseParAnneeQuery(contrats)
+  val montantDepenseParAnnee: DataFrame = transformContratNoParam(montantDepenseParAnneeQuery)
 
   // liste des natures de contrats
-  val listeDesNaturesDeContrat: DataFrame = listeParColonneDistinctQuery(contrats, natureString)
+  val listeDesNaturesDeContrat: DataFrame = transformContratOneParam(listeParColonneDistinctQuery, natureString)
 
   // argent depensee par nature du contrat
-  val montantOctroyeParNatures: DataFrame = montantCumulatifParQuery(contrats, natureString)
+  val montantOctroyeParNatures: DataFrame = transformContratOneParam(montantCumulatifParQuery, natureString)
 
   // liste de contrat selon leur nature
-  val listeContractantParNature: DataFrame = listeContractantParNatureQuery(contrats, "Acquisition")
+  val listeContractantParNature: DataFrame = transformContratOneParam(listeContractantParNatureQuery, "Acquisition")
 
   def closeSession(): Unit = sparkSession.close()
 }

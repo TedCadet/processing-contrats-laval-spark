@@ -1,11 +1,11 @@
-package com.tedcadet.donneeslaval.contrats.spark
+package com.tedcadet.donneeslaval.contrats.spark.traits
 
-import com.tedcadet.donneeslaval.contrats.spark.ContratUserDefinedFunctions.{toBigDecimal, toSubStrAnneeUdf}
+import com.tedcadet.donneeslaval.contrats.spark.userdefinedfunctions.ContratUserDefinedFunctions.{toBigDecimal, toSubStrAnneeUdf}
 import org.apache.spark.sql.Column
 import org.apache.spark.sql.functions.col
 
 trait ContratColumns {
-  
+
   // nom des colonnes
   val montantString: String = "montant"
   val contractantString: String = "contractant"
