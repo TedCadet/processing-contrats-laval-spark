@@ -25,4 +25,6 @@ trait DfTransformer extends Query {
     query(df, param)
 
   // TODO: une methode qui map.get(id).union(map.get(id))?
+  // transforme une sequence de queries? fold?
+  //  def transformContratWithManyQueries[A](queries: Seq[QueryOneParam[A]], params: A*)(implicit df: DataFrame)
 }
