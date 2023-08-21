@@ -6,13 +6,10 @@ import org.apache.spark.sql.{DataFrame, SparkSession}
 import pureconfig._
 import pureconfig.generic.auto._
 
-
-// TODO: use a class instead so that instance could keep the state of this read?
 object ContratSparkService extends ContratColumns {
   final case class SparkConfig(appName: String, master: String, path: String)
 
-  // TODO: apply(contrats, sparkSession)?
-
+  // TODO: il ne load pas la config du application.conf
   val sparkConfig: SparkConfig = ConfigSource.default.at("spark")
     .load[SparkConfig]
     .getOrElse(
