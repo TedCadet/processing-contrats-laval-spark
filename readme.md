@@ -1,7 +1,7 @@
 # Context of the projet
 
 project to analyse with spark and serve the data throuh an Akka Grpc server.
-The data came from the city of laval, more precisely their contracts it gave to contractors in the
+The data came from the city of laval, more precisely their contracts given to contractors in the
 last decade,
 and it was free to use.
 
